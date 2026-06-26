@@ -1,0 +1,93 @@
+site_name: aioips
+site_description: Асинхронный Python-клиент для IPS Server Web API — справочная документация
+site_author: a-ulianov
+repo_url: https://github.com/a-ulianov/aioips
+repo_name: a-ulianov/aioips
+copyright: MIT License
+docs_dir: docs
+
+theme:
+  name: material
+  language: ru
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Тёмная тема
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Светлая тема
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+plugins:
+  - search:
+      lang: ru
+
+nav:
+  - Главная: index.md
+  - Начало работы:
+      - getting-started/index.md
+      - Установка: getting-started/installation.md
+      - Конфигурация: getting-started/configuration.md
+      - Быстрый старт: getting-started/quickstart.md
+      - Авторизация: getting-started/authentication.md
+  - Концепции IPS:
+      - concepts/index.md
+      - Модель данных (объект и версия): concepts/data-model.md
+      - Атрибуты и типы данных: concepts/attributes.md
+      - Жизненный цикл: concepts/lifecycle.md
+      - Связи и состав: concepts/relations-composition.md
+      - Поиск объектов: concepts/search.md
+  - Руководства:
+      - guides/index.md
+      - Чтение объектов: guides/reading-objects.md
+      - Редактирование объектов: guides/editing-objects.md
+      - Поиск и выборки: guides/searching.md
+      - Файлы (загрузка/скачивание): guides/files.md
+      - Связи и состав: guides/relations.md
+      - Обработка ошибок и повторы: guides/error-handling.md
+  - Справочник API:
+      - reference/index.md
+      - Все методы (полный список): reference/all-methods.md
+      - Объекты (objects): reference/objects.md
+      - Метаданные (metadata): reference/metadata.md
+      - Связи (relations): reference/relations.md
+      - Файлы (files): reference/files.md
+      - Права доступа (security): reference/security.md
+      - Прочие разделы: reference/other-sections.md
+  - Архитектура: architecture.md
+  - Участие в разработке: contributing.md
