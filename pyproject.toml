@@ -1,0 +1,141 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aioips"
+version = "1.0.0"
+description = "Асинхронный pydantic-клиент для IPS Server Web API (Intermech Professional Solutions)"
+readme = "README.md"
+requires-python = ">=3.13,<4.0"
+keywords = ["ips", "intermech", "api", "async", "pydantic", "plm", "pdm", "client"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "aiohttp>=3.10,<4.0",
+    "tenacity>=9.0,<10.0",
+    "pydantic>=2.9,<3.0",
+    "pydantic-settings>=2.5,<3.0",
+    "python-dotenv>=1.0,<2.0",
+]
+
+[[project.authors]]
+name = "Alexander Ulianov"
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+Homepage = "https://github.com/a-ulianov/aioips"
+Repository = "https://github.com/a-ulianov/aioips"
+Issues = "https://github.com/a-ulianov/aioips/issues"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.3,<9.0",
+    "pytest-asyncio>=0.24,<1.0",
+    "pytest-cov>=5.0,<8.0",
+]
+dev = [
+    "aioips[test]",
+    "ruff>=0.6,<1.0",
+    "mypy>=1.11,<2.0",
+    "pre-commit>=3.8,<5.0",
+]
+docs = [
+    "mkdocs-material>=9.5,<10.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["aioips*"]
+
+[tool.setuptools.package-data]
+aioips = ["py.typed"]
+
+# --------------------------------------------------------------------------- #
+# Ruff — линтер и форматтер (заменяет black/isort).                            #
+# --------------------------------------------------------------------------- #
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "N", "UP", "B", "ASYNC", "RUF", "D", "S"]
+ignore = [
+    "D203",    # конфликтует с D211 (предпочитаем «no blank line before class»)
+    "D213",    # конфликтует с D212 (предпочитаем summary на первой строке)
+    "RUF001",  # неоднозначные unicode-символы: проект документируется на русском
+    "RUF002",  # то же для docstrings (кириллица — это норма, не опечатка)
+    "RUF003",  # то же для комментариев
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "D"]             # в тестах: assert и фиктивные «секреты» — норма; docstrings не требуем
+"examples/**" = ["D", "S", "T201"]
+"scripts/**" = ["D", "S", "T201", "INP001"]  # служебные скрипты: docstrings/print/namespace не требуем
+"src/aioips/**/__init__.py" = ["F401"]  # реэкспорт из пакетов
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["aioips"]
+
+# --------------------------------------------------------------------------- #
+# Mypy — строгая статическая типизация.                                        #
+# --------------------------------------------------------------------------- #
+[tool.mypy]
+python_version = "3.13"
+strict = true
+plugins = ["pydantic.mypy"]
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_any_generics = true
+no_implicit_reexport = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+# --------------------------------------------------------------------------- #
+# Pytest и покрытие.                                                           #
+# --------------------------------------------------------------------------- #
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--import-mode=importlib --strict-markers"
+
+[tool.coverage.run]
+branch = true
+source = ["aioips"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "\\.\\.\\.",
+]

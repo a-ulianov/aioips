@@ -1,0 +1,48 @@
+# --- Секреты и локальная конфигурация (НИКОГДА не коммитим) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+inventory.local.yml
+secrets.local.*
+
+# --- Python ---
+.venv/
+venv/
+env/
+build/
+dist/
+*.egg-info/
+__pycache__/
+*.py[cod]
+*.pid
+
+# --- Тесты и покрытие ---
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# --- Логи ---
+*.log
+logs/
+
+# --- IDE / ОС ---
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- Claude Code: локальные настройки и операционный контракт агента (не публикуем) ---
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+
+# --- mkdocs build ---
+site/
+
+# --- Внутренняя проектная документация (vault целиком — остаётся локально, не публикуется) ---
+vault/

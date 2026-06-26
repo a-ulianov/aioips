@@ -1,0 +1,48 @@
+name: publish
+
+# Публикация в PyPI при пуше тега вида v1.0.0.
+# Используется PyPI Trusted Publishing (OIDC) — секреты/токены не нужны.
+# Предварительно на pypi.org должен быть настроен trusted publisher для проекта aioips
+# (owner: a-ulianov, repo: aioips, workflow: publish.yml, environment: pypi).
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Build sdist and wheel
+        run: |
+          python -m pip install --upgrade pip build
+          python -m build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/aioips/
+    permissions:
+      id-token: write # обязательно для trusted publishing (OIDC)
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
