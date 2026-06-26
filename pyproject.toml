@@ -47,7 +47,7 @@ test = [
 dev = [
     "aioips[test]",
     "ruff>=0.6,<1.0",
-    "mypy>=1.11,<2.0",
+    "mypy>=1.11,<3.0",
     "pre-commit>=3.8,<5.0",
 ]
 docs = [
