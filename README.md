@@ -1,7 +1,7 @@
 # aioips
 
 [![PyPI](https://img.shields.io/pypi/v/aioips.svg)](https://pypi.org/project/aioips/)
-[![Python](https://img.shields.io/pypi/pyversions/aioips.svg)](https://pypi.org/project/aioips/)
+[![Python](https://img.shields.io/pypi/pyversions/aioips.svg?cacheSeconds=3600)](https://pypi.org/project/aioips/)
 [![CI](https://github.com/a-ulianov/aioips/actions/workflows/ci.yml/badge.svg)](https://github.com/a-ulianov/aioips/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
