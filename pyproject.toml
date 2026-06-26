@@ -41,7 +41,7 @@ Issues = "https://github.com/a-ulianov/aioips/issues"
 [project.optional-dependencies]
 test = [
     "pytest>=8.3,<9.0",
-    "pytest-asyncio>=0.24,<1.0",
+    "pytest-asyncio>=0.24,<2.0",
     "pytest-cov>=5.0,<8.0",
 ]
 dev = [
